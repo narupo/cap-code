@@ -2,9 +2,6 @@ const vscode = require('vscode');
 const cp = require('child_process');
 const stream = require('stream');
 
-// https://github.com/microsoft/vscode-extension-samples/blob/master/document-editing-sample/src/extension.ts
-// https://stackoverflow.com/questions/45203543/vs-code-extension-api-to-get-the-range-of-the-whole-text-of-a-document
-
 function getClip() {
 	return new Promise(async (resolve, reject) => {
 		let text;
