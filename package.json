@@ -11,15 +11,20 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.cap"
+		"onCommand:extension.cap-text-command",
+		"onCommand:extension.test",
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.cap",
-				"title": "Cap"
-			}
+				"command": "extension.cap-text-command",
+				"title": "Cap Text Command"
+			},
+			{
+				"command": "extension.test",
+				"title": "Test"
+			},
 		]
 	},
 	"scripts": {
