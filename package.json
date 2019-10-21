@@ -1,6 +1,7 @@
 {
 	"name": "cap-code",
 	"displayName": "cap-code",
+	"publisher": "narupo",
 	"description": "VS Code's extension for Cap",
 	"version": "0.0.1",
 	"engines": {
