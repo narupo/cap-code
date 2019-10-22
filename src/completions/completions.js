@@ -47,13 +47,19 @@ function aliasesToCompletions(aliases) {
     return comps
 }
 
-function createProvider() {
+function updateCompletions(done=null) {
 	getAliases(aliases => {
-        __completions = aliasesToCompletions(aliases);
+		__completions = aliasesToCompletions(aliases);
+		if (typeof done === 'function') {
+			done();
+		}
 	});
+}
 
+function createProvider() {
 	return vscode.languages.registerCompletionItemProvider('plaintext', {
 		provideCompletionItems(document, position, token) {
+			updateCompletions();
 			return __completions;
 		},
 	});
