@@ -71,7 +71,6 @@ function createProvider() {
 		provideCompletionItems(document, position, token) {
 			if (onCmdLine()) {
 				updateCompletions();
-				console.log('update');
 			}
 			return __completions;
 		},
