@@ -14,4 +14,4 @@ Write the Cap's command line on editor like the following.
 @pwd
 ```
 
-And execute cap-code command. Then, Command result is pasted at cursor position of editor.
+And execute cap-code command (`cap-text-command`). Then, Command result is pasted at cursor position of editor.

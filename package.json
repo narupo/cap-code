@@ -12,7 +12,7 @@
 	],
 	"activationEvents": [
 		"onCommand:extension.cap-text-command",
-		"onCommand:extension.cap-input-box-command",
+		"onCommand:extension.cap-input-box-command"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -24,7 +24,7 @@
 			{
 				"command": "extension.cap-input-box-command",
 				"title": "Cap Input Box Command"
-			},
+			}
 		]
 	},
 	"scripts": {
