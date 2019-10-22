@@ -3,7 +3,7 @@
 	"displayName": "cap-code",
 	"publisher": "narupo",
 	"description": "VS Code's extension for Cap",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -12,7 +12,7 @@
 	],
 	"activationEvents": [
 		"onCommand:extension.cap-text-command",
-		"onCommand:extension.test",
+		"onCommand:extension.cap-input-box-command",
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -22,8 +22,8 @@
 				"title": "Cap Text Command"
 			},
 			{
-				"command": "extension.test",
-				"title": "Test"
+				"command": "extension.cap-input-box-command",
+				"title": "Cap Input Box Command"
 			},
 		]
 	},
