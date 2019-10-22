@@ -26,10 +26,11 @@ async function execCmdLine(editor, cmdLine) {
 		stdout = result.stdout;
 		stderr = result.stderr;
 	} catch (err) {
-		console.error(err);
 		editor.edit(edit => {
 			edit.delete(delRange);
 		});
+		const msg = err.message.slice(err.message.search('Error:'));
+		vscode.window.showErrorMessage(msg);
 		return;
 	}
 
@@ -37,6 +38,10 @@ async function execCmdLine(editor, cmdLine) {
 		edit.delete(delRange);
 		edit.insert(curPos, stdout);
 	});
+
+	if (stderr && stderr.length) {
+		vscode.window.showErrorMessage(stderr);
+	}
 }
 
 function exec() {
