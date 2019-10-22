@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const cp = require('child_process');
+const utils = require('../core/utils');
 
 function splitStdout(cmd, sep, done, fail) {
 	cp.exec(cmd, (err, stdout, stderr) => {
@@ -56,10 +57,22 @@ function updateCompletions(done=null) {
 	});
 }
 
+function onCmdLine() {
+	const editor = vscode.window.activeTextEditor;
+	const line = utils.getCurLine(editor);
+	if (line && line.search('@') >= 0) {
+		return true;
+	}
+	return false;
+}
+
 function createProvider() {
 	return vscode.languages.registerCompletionItemProvider('plaintext', {
 		provideCompletionItems(document, position, token) {
-			updateCompletions();
+			if (onCmdLine()) {
+				updateCompletions();
+				console.log('update');
+			}
 			return __completions;
 		},
 	});
