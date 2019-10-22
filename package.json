@@ -14,7 +14,7 @@
 		"onCommand:extension.cap-text-command",
 		"onCommand:extension.cap-input-box-command"
 	],
-	"main": "./extension.js",
+	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
 			{
