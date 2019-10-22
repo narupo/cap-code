@@ -3,7 +3,7 @@
 	"displayName": "cap-code",
 	"publisher": "narupo",
 	"description": "VS Code's extension for Cap",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
