@@ -67,6 +67,7 @@ function onCmdLine() {
 }
 
 function createProvider() {
+	updateCompletions(); // first call
 	return vscode.languages.registerCompletionItemProvider('plaintext', {
 		provideCompletionItems(document, position, token) {
 			if (onCmdLine()) {
