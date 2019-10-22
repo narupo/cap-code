@@ -2,16 +2,20 @@ const vscode = require('vscode');
 const utils = require('../core/utils.js');
 const parsers = require('../core/parsers.js');
 
-async function exec() {
-	const editor = vscode.window.activeTextEditor;
-	if (editor == null) {
+/**
+ * Execute Cap's command line on editor
+ * 
+ * @param { } editor 
+ * @param {String} cmdLine Cap's command line with start with '@' character
+ */
+async function execCmdLine(editor, cmdLine) {
+	if (editor == null || cmdLine == null) {
 		return;
 	}
 
 	const stdinText = await utils.getClip();
 	const curPos = utils.getCursorPos(editor);
-	const line = utils.getCurLine(editor);
-	const { argv, atPos } = parsers.parseCapCmdLine(line);
+	const { argv, atPos } = parsers.parseCapCmdLine(cmdLine);
 	const delStart = new vscode.Position(curPos.line, atPos);
 	const delEnd = new vscode.Position(curPos.line+1, 0);
 	const delRange = new vscode.Range(delStart, delEnd);
@@ -35,6 +39,13 @@ async function exec() {
 	});
 }
 
+function exec() {
+	const editor = vscode.window.activeTextEditor;
+	const cmdLine = utils.getCurLine(editor);
+	execCmdLine(editor, cmdLine);
+}
+
 module.exports = {
 	exec,
+	execCmdLine,
 }
