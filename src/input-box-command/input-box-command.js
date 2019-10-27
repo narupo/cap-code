@@ -18,7 +18,7 @@ async function exec() {
 
 	const stdinText = await utils.getClip();
 	const curPos = utils.getCursorPos(editor);
-	const { argv, atPos } = parsers.parseCapCmdLine(cmdLine);
+	const { argv, atPos, spaces } = parsers.parseCapCmdLine(cmdLine);
 
 	let stdout, stderr;
 	try {

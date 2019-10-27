@@ -3,6 +3,7 @@ function parseCapCmdLine(cmdLine) {
 	let m = 'first';
 	let line = '';
 	let atPos = 0;
+	let spaces = '';
 
 	for (let i = 0; i < cmdLine.length; ++i) {
 		const c = cmdLine[i];
@@ -11,6 +12,8 @@ function parseCapCmdLine(cmdLine) {
 			if (c == '@') {
 				m = 'found @';
 				atPos = i;
+			} else {
+				spaces += c;
 			}
 			break;
         case 'found @':
@@ -21,7 +24,7 @@ function parseCapCmdLine(cmdLine) {
 
 	const argv = line.split(' ');
 
-	return { argv, atPos };
+	return { argv, atPos, spaces };
 }
 
 module.exports = {

@@ -2,6 +2,32 @@ const vscode = require('vscode');
 const utils = require('../core/utils.js');
 const parsers = require('../core/parsers.js');
 
+function setIndents(text, spaces) {
+	let dst = '';
+	let m = 'indent';
+
+	for (let i = 0; i < text.length; ) {
+		const c = text[i];
+		switch (m) {
+		case 'indent':
+			dst += spaces;
+			m = 'read line';
+			break;
+		case 'read line':
+			if (c == '\n') {
+				m = 'indent';
+				dst += c
+			} else {
+				dst += c;
+			}
+			++i;
+			break;
+		}
+	}
+
+	return dst;
+}
+
 /**
  * Execute Cap's command line on editor
  * 
@@ -15,8 +41,8 @@ async function execCmdLine(editor, cmdLine) {
 
 	const stdinText = await utils.getClip();
 	const curPos = utils.getCursorPos(editor);
-	const { argv, atPos } = parsers.parseCapCmdLine(cmdLine);
-	const delStart = new vscode.Position(curPos.line, atPos);
+	const { argv, atPos, spaces } = parsers.parseCapCmdLine(cmdLine);
+	const delStart = new vscode.Position(curPos.line, 0);
 	const delEnd = new vscode.Position(curPos.line+1, 0);
 	const delRange = new vscode.Range(delStart, delEnd);
 
@@ -33,6 +59,8 @@ async function execCmdLine(editor, cmdLine) {
 		vscode.window.showErrorMessage(msg);
 		return;
 	}
+
+	stdout = setIndents(stdout, spaces);
 
 	editor.edit(edit => {
 		edit.delete(delRange);
