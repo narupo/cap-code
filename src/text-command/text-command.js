@@ -38,13 +38,10 @@ async function execCmdLine(editor, cmdLine) {
 	if (editor == null || cmdLine == null) {
 		return;
 	}
-
+	
 	const stdinText = await utils.getClip();
 	const curPos = utils.getCursorPos(editor);
 	const { argv, atPos, spaces } = parsers.parseCapCmdLine(cmdLine);
-	const delStart = new vscode.Position(curPos.line, 0);
-	const delEnd = new vscode.Position(curPos.line+1, 0);
-	const delRange = new vscode.Range(delStart, delEnd);
 
 	let stdout, stderr;
 	try {
@@ -63,9 +60,20 @@ async function execCmdLine(editor, cmdLine) {
 	stdout = setIndents(stdout, spaces);
 
 	editor.edit(edit => {
+		const delStart = new vscode.Position(curPos.line, 0);
+		const delEnd = new vscode.Position(curPos.line+1, 0);
+		const delRange = new vscode.Range(delStart, delEnd);
 		edit.delete(delRange);
-		edit.insert(curPos, stdout);
+
+		const insertPos = new vscode.Position(curPos.line+1, 0);
+		edit.insert(insertPos, stdout);
 	});
+
+	// change cursor position. after inserted position
+	const line = curPos.line + utils.countNewlines(stdout);
+	const newPosition = new vscode.Position(line, 0);
+	const newSelection = new vscode.Selection(newPosition, newPosition);
+	editor.selection = newSelection;
 
 	if (stderr && stderr.length) {
 		vscode.window.showErrorMessage(stderr);

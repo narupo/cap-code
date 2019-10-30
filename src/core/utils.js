@@ -59,9 +59,23 @@ function runProc(cmd, argv, stdinText) {
 	});
 }
 
+function countNewlines(text) {
+	let cnt = 0;
+
+	for (let i = 0; i < text.length; ++i) {
+		const c = text[i];
+		if (c === '\n') {
+			++cnt;
+		}
+	}
+
+	return cnt;
+}
+
 module.exports = {
     getClip,
     getCursorPos,
     getCurLine,
-    runProc,
+	runProc,
+	countNewlines,
 };
