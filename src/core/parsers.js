@@ -13,7 +13,7 @@ function parseCapCmdLine(cmdLine) {
 				m = 'found @';
 				atPos = i;
 			} else {
-				spaces += c;
+				spaces += ' ';
 			}
 			break;
         case 'found @':
